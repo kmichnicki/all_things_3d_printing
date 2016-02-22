@@ -1,0 +1,31 @@
+from pyscad import *
+import math
+
+scale=.5
+t=.2
+w=1
+h=4
+
+t=scale*t
+w=scale*w
+h=scale*h
+
+x=cube([w,h,t],'true')
+x=translate(x,[0,0,t/2])
+
+y=rotate(x,[90,0,0])
+
+y=translate(y,[float(w)/2,float(h)/4,0])
+z=rotate(y,[0,0,180])
+y=union(y,z)
+
+x=difference(x,y)
+
+x=union(x,rotate(x,[0,0,90]))
+
+
+
+
+f=open("crosspiece.scad","w")
+f.write(x)
+f.close()

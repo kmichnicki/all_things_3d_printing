@@ -1,0 +1,20 @@
+from pyscad import *
+
+cone="cylinder(20,5,0); \n"
+
+x=difference(cone,translate(cone,[0,0,-2]))
+
+cube1="cube([.6,15,15],center=true); \n"
+cube2="cube([15,.6,15],center=true); \n"
+cross=union(cube1,cube2)
+cross=translate(cross,[0,0,15])
+x=difference(x,cross)
+
+
+
+
+
+
+f=open("oneWayValve.scad","w")
+f.write(x)
+f.close()

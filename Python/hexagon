@@ -1,0 +1,34 @@
+from pyscad import *
+import math
+
+length=10
+height=3
+
+x=cube([length,length*math.sqrt(3),height],"true")
+
+y=union(x,rotate(x,[0,0,120]))
+y=union(y,rotate(x,[0,0,240]))
+
+x=y
+
+z=cube([2,2,height],"true")
+
+u=cylinder(height,1.5,1.5)
+u=translate(u,[0,2,-height/2])
+puzzle=union(z,u)
+
+z=translate(puzzle,[-3.5,.499*length*math.sqrt(3),0])
+
+u=""
+v=""
+for i in range(6):
+    v=union(v,rotate(z,[0,0,i*60]))
+    u=union(u,rotate(translate(z,[0,-1.001*length*math.sqrt(3),0]),[0,0,i*60]))
+
+
+x=union(x,v)
+x=difference(x,u)
+
+f=open("fluiduino/hexagon.scad","w")
+f.write(x)
+f.close()

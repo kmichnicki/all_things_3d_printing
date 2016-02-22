@@ -1,0 +1,38 @@
+from pyscad import *
+
+
+x=cube([140,140,100],"true")
+y=cube([130,130,200],"true")
+x=difference(x,y)
+x=translate(x,[0,0,50])
+
+
+
+z=cube([125,125,7],"true")
+z=translate(z,[0,0,3.5])
+u=cylinder(30,20,20,"true")
+u=translate(u,[0,0,15])
+z=union(z,u)
+
+x=union(x,z)
+
+
+
+f=open("cheese/cheesepress1.scad","w")
+f.write(x)
+f.close()
+
+
+c=cube([1,160,1],"true")
+c=translate(c,[-77,0,.5])
+
+for i in range(6):
+    c=union(c,translate(c,[3*2**i,0,0]))
+
+c=intersection(c,cube([148,148,30],"true"))
+c=union(c,rotate(c,[0,0,90]))
+
+f=open("cheese/cheesegrid.scad","w")
+f.write(c)
+f.close()
+

@@ -1,0 +1,21 @@
+
+def rotate(obj,angle=[0,0,0]):
+    return "rotate(["+str(angle[0])+","+str(angle[1])+","+str(angle[2])+"]) "+ obj
+
+def translate(obj, pos=[0,0,0]):
+    return "translate(["+str(pos[0])+","+str(pos[1])+","+str(pos[2])+"]) "+obj
+
+def union(obj1,obj2):
+    return """union() {
+"""+obj1+obj2+"""}
+"""
+
+def difference(obj1,obj2):
+    return """difference() {
+"""+obj1+obj2+"""}
+"""
+
+def intersection(obj1,obj2):
+    return """intersection() {
+"""+obj1+obj2+"""}
+"""

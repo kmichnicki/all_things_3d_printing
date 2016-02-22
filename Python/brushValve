@@ -1,0 +1,25 @@
+from pyscad import *
+import math
+
+
+
+
+
+z=""
+
+for i in range(-10,10):
+    for j in range(-10,10):
+        norm=math.sqrt(i**2+j**2)
+        if norm > 0:
+            z=union(z,vectorCylinder([2*i,2*j,0],[2*i+3*j/norm,2*j-3*i/norm,35],.5,.5))
+
+z=intersection(z,cylinder(40,11,11))
+
+x=difference(cylinder(40,14,14),cylinder(41,12,12))
+x=union(x,cylinder(2,14,14))
+z=union(x,z)
+z=difference(z,cylinder(40,5,5))
+
+f=open("brushValve.scad","w")
+f.write(z)
+f.close()

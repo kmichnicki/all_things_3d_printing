@@ -1,0 +1,26 @@
+from pyscad import *
+import math
+
+
+t=6
+w=6
+h=6
+
+x=cube([w,h,t],'true')
+x=translate(x,[-70,-70,h/2])
+u=x
+for v in range(8):
+    u=union(u,translate(x,[3*v*w/2,0,0]))
+
+x=u
+
+for v in range(8):
+    u=union(u,translate(x,[0,3*v*w/2,0]))
+
+    
+x=u     
+
+
+f=open("cube.scad","w")
+f.write(x)
+f.close()

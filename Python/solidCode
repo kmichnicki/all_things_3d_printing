@@ -1,0 +1,30 @@
+from pyscad import *
+import math
+
+def point(r=[0,0,0],shade=0):
+    x=vectorCylinder(r,[r[0],r[1],r[2]+1],.05,.05)
+    x=union(x,vectorCylinder(r,[r[0],r[1]+1,r[2]],.05,.05))
+    x=union(x,vectorCylinder(r,[r[0]-1,r[1],r[2]],.05,.05))
+    x="color(["+str(shade)+","+str(shade)+",1]){"+x+"}"
+    y="color(["+str(shade)+",1,"+str(shade)+"]){"+translate(sphere(.1),r)+"}"
+    x=union(x,y)
+    return x
+
+size=3
+out=""
+for i in range(size):
+    for j in range(size):
+        for k in range(size):
+            out=out+" \n "+point([i,j,k],(float(i**2+j**2+k**2)/float(i**2+j**2+k**2+1))**10)
+                
+
+
+
+
+
+
+
+
+f=open("WeldedCodes/fluidDiode.scad","w")
+f.write(out)
+f.close()

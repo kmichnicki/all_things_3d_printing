@@ -1,0 +1,58 @@
+from pyscad import *
+import math
+
+
+
+t=float(2)
+w=float(10)
+h=float(15)
+
+hSlit=float(4.5)
+rTab=float(1.2)
+
+A=cube([w,h-2,t],'true')
+A=translate(A,[0,(h-2)/2,t/2])
+
+
+B=cylinder(t,w/2,w/2,'true')
+B=translate(B,[0,h-2,t/2])
+
+C=cube([w,hSlit,4*t],'true')
+C=translate(C,[w/2,h-hSlit/2,0])
+
+X=cylinder(t,rTab,rTab,'true')
+
+D=translate(X,[w/2,h,t/2])
+E=translate(X,[w/2,h-hSlit,t/2])
+F=translate(X,[-(w+1)/2,h-hSlit/2,t/2])
+
+
+WING=union(A,B)
+WING=difference(WING,C)
+Z=union(D,E)
+Z1=union(translate(D,[-w/2,0,0]),translate(E,[-w/2,0,0]))
+WING=union(WING,Z)
+WING=union(WING,Z1)
+
+WING=difference(WING,F)
+
+ZING=""
+for i in range(4):
+    ZING=union(ZING,rotate(WING,[0,0,90*i]))
+
+WING=rotate(ZING,[0,0,30])
+WING=translate(WING,[-45,-45,0])
+ZING=""
+for i in range(4):
+    for j in range(4):
+        ZING=union(ZING,translate(WING,[30*i,30*j,0]))
+        
+WING=ZING        
+
+
+f=open("crossPieceGold1.scad","w")
+f.write(WING)
+
+
+f.close()
+
